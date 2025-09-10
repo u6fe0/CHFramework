@@ -1,0 +1,22 @@
+body {
+  font-family: "Arial", "Microsoft YaHei", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #222;
+  color: #eee;
+}
+#node-tree {
+  padding: 8px;
+}
+.tree-node {
+  cursor: pointer;
+  padding: 3px 10px;
+  border-radius: 3px;
+  transition: background 0.2s;
+  user-select: none;
+  margin-bottom: 2px;
+  white-space: pre;
+}
+.tree-node:hover {
+  background: #444;
+}

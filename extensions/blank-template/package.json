@@ -1,0 +1,27 @@
+{
+  "name": "node-tree",
+  "version": "1.0.0",
+  "displayName": "节点树",
+  "description": "Cocos Creator 3.8.6 节点树可视化插件",
+  "author": "你的名字",
+  "main": "extension.js",
+  "engines": {
+    "cocos": "^3.8.0"
+  },
+  "contributions": {
+    "main-menu": [
+      {
+        "label": "扩展/节点树",
+        "message": "node-tree:open"
+      }
+    ]
+  },
+  "panels": {
+    "node-tree-panel": {
+      "title": "节点树",
+      "type": "dock",
+      "main": "panel/index.js",
+      "icon": ""
+    }
+  }
+}

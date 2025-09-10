@@ -1,0 +1,14 @@
+{
+  "__version__": "1.0.1",
+  "information": {
+    "removeSplash": {
+      "id": "removeSplash",
+      "label": "removeSplash",
+      "enable": true,
+      "removeSplash": {
+        "complete": false,
+        "form": "https://creator-api.cocos.com/api/form/show?sid=598d447ec4cd53c7481f38de3ab156ba"
+      }
+    }
+  }
+}
