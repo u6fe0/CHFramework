@@ -1,41 +1,17 @@
+import { IUIAdapter } from './IUIAdapter';
 import { Observable } from './Observable';
-import { Label, EditBox } from 'cc';
 
 export class Binder {
-    // 单向绑定：Observable 到 UI
-    static bind<T>(
-        observable: Observable<T>, 
-        target: any, 
-        property: string = "string"
-    ): void {
-        if (target instanceof Label && property === "string") {
-            observable.subscribe((value: T) => {
-                target.string = String(value);
-            });
-        } else {
-            observable.subscribe((value: T) => {
-                target[property] = value;
-            });
-        }
+    static bind<T>(observable: Observable<T>, adapter: IUIAdapter<T>): void {
+        observable.subscribe(value => adapter.setValue(value));
     }
 
-    // 双向绑定：Observable <-> EditBox
-    static bindTwoWay(
-        observable: Observable<string>,
-        editBox: EditBox
-    ): void {
-        // ViewModel -> EditBox
-        observable.subscribe((value: string) => {
-            if (editBox.string !== value) {
-                editBox.string = value;
-            }
+    static bindTwoWay(observable: Observable<string>, adapter: IUIAdapter<string>): void {
+        observable.subscribe(value => {
+            if (adapter.getValue() !== value) adapter.setValue(value);
         });
-
-        // EditBox -> ViewModel
-        editBox.node.on('editing-did-ended', () => {
-            if (observable.value !== editBox.string) {
-                observable.value = editBox.string;
-            }
+        adapter.onChange(value => {
+            if (observable.value !== value) observable.value = value;
         });
     }
 }

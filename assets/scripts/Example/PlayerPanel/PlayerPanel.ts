@@ -1,6 +1,6 @@
 import { _decorator, Component, Label, Button } from 'cc';
 import { PlayerViewModel } from './PlayerViewModel';
-import { Binder } from '../../CHFramework/Framework';
+import { Binder, LabelAdapter, EditBoxAdapter } from '../../CHFramework/Framework';
 const { ccclass, property } = _decorator;
 import { EditBox } from 'cc';
 
@@ -29,13 +29,13 @@ export class PlayerPanel extends Component {
         });
 
         // 单向绑定 name 到 nameLabel
-        Binder.bind(this.vm.name, this.nameLabel);
+        Binder.bind(this.vm.name, new LabelAdapter(this.nameLabel));
 
         // 单向绑定 hp 到 hpLabel
-        Binder.bind(this.vm.hp, this.hpLabel);
+        Binder.bind(this.vm.hp, new LabelAdapter(this.hpLabel));
 
         // 双向绑定 name 到 nameEditBox
-        Binder.bindTwoWay(this.vm.name, this.nameEditBox);
+        Binder.bindTwoWay(this.vm.name, new EditBoxAdapter(this.nameEditBox));
 
         // 按钮事件绑定到 Command
         this.damageBtn.node.on(Button.EventType.CLICK, () => {

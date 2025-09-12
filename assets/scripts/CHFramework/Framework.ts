@@ -13,6 +13,7 @@ import { Binder } from "./Runtime/Framework/Binding/Binder";
 import { Command } from "./Runtime/Framework/Binding/Command";
 import { Observable } from "./Runtime/Framework/Binding/Observable";
 import { PropertyChanged } from "./Runtime/Framework/Binding/PropertyChanged";
+import { LabelAdapter, EditBoxAdapter } from "./Runtime/Framework/Binding/IUIAdapter";
 
 // 接口
 export type { IFactory };
@@ -26,5 +27,7 @@ export {
     Binder,
     Command,
     Observable,
-    PropertyChanged
+    PropertyChanged,
+    LabelAdapter,
+    EditBoxAdapter
 };
