@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "PlayerPanel",
+    "_name": "PlayerView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "PlayerPanel",
+    "_name": "PlayerView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -41,13 +41,10 @@
       },
       {
         "__id__": 56
-      },
-      {
-        "__id__": 58
       }
     ],
     "_prefab": {
-      "__id__": 60
+      "__id__": 58
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -1435,25 +1432,7 @@
     "fileId": "439tTaCApDbL7P23gs1vRx"
   },
   {
-    "__type__": "7784556sLNJt6zRUkFp+OqA",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": false,
-    "__prefab": {
-      "__id__": 57
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "34G3kxKJtEppcPaj0Anyq1"
-  },
-  {
-    "__type__": "10798szf2BHTbeYkbqqObZG",
+    "__type__": "1f7e8Wj7HhAKpipBpdwnEEI",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -1462,7 +1441,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 59
+      "__id__": 57
     },
     "nameLabel": {
       "__id__": 11
@@ -1480,7 +1459,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "2cdD4j3xRCI45dSDU8iWs0"
+    "fileId": "38JcJ/C3FAIpzEkXuZGSnD"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1491,6 +1470,7 @@
       "__id__": 0
     },
     "fileId": "7aJMPod1ZIZ5yg64D43iFV",
+    "instance": null,
     "targetOverrides": null
   }
 ]

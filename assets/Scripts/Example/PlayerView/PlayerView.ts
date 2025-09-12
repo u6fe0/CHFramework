@@ -1,8 +1,7 @@
-import { _decorator, Component, Label, Button } from 'cc';
+import { _decorator, Component, Label, Button, EditBox } from 'cc';
 import { PlayerViewModel } from './PlayerViewModel';
 import { Binder, LabelAdapter, EditBoxAdapter } from '../../CHFramework/Framework';
 const { ccclass, property } = _decorator;
-import { EditBox } from 'cc';
 
 @ccclass('PlayerPanel')
 export class PlayerPanel extends Component {

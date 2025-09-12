@@ -15,6 +15,12 @@ import { Observable } from "./Runtime/Framework/Binding/Observable";
 import { PropertyChanged } from "./Runtime/Framework/Binding/PropertyChanged";
 import { LabelAdapter, EditBoxAdapter } from "./Runtime/Framework/Binding/IUIAdapter";
 
+import { UILayers } from "./Runtime/Framework/Views/UI/Core/UILayers";
+import { UIManager } from "./Runtime/Framework/Views/UI/Core/UIManager";
+import { UIKey } from "./Runtime/Framework/Views/UI/Core/UIKey";
+import { UIRegistry } from "./Runtime/Framework/Views/UI/Core/UIRegistry";
+import { UILayerConfig } from "./Runtime/Framework/Views/UI/Core/UILayerConfig";
+
 // 接口
 export type { IFactory };
 
@@ -29,5 +35,11 @@ export {
     Observable,
     PropertyChanged,
     LabelAdapter,
-    EditBoxAdapter
+    EditBoxAdapter,
+
+    UILayers,
+    UIManager,
+    UIKey,
+    UIRegistry,
+    UILayerConfig,
 };
