@@ -1,40 +1,39 @@
-import { Component } from 'cc';
-
+import { Component, Enum, _decorator } from 'cc';
+import { ViewModel } from '../../../Binding/IViewModel';
+import { LayerEnum } from './UILayers';
+const { property } = _decorator;
 /**
- * 精简版 UIView：仅负责延迟创建 ViewModel
+ * UI 视图基类
  */
-export abstract class UIView<TVM extends object = any> extends Component {
-    readonly __isUIView = true;
-    protected _vm?: TVM;
-    private _initialized = false;
+export abstract class UIView extends Component {
+    @property({ type: Enum(LayerEnum) })
+    layer: LayerEnum = LayerEnum.Normal;
+    protected _vm: ViewModel;
 
-    protected createViewModel(): TVM | null | undefined {
-        return null;
-    }
-
-    protected abstract onViewModelReady(vm: TVM): void;
-
-    public init(vm?: TVM) {
-        if (this._initialized) return;
-        if (!vm) vm = this.createViewModel() || undefined;
-        if (!vm) throw new Error('[UIView] 需要提供 ViewModel。');
+    protected abstract initViewModel(): ViewModel;
+    protected onViewModelReady(vm: ViewModel): void {
         this._vm = vm;
-        this.onViewModelReady(vm);
-        this._initialized = true;
     }
 
-    get viewModel(): TVM {
+    get viewModel(): ViewModel {
         if (!this._vm) throw new Error('[UIView] 尚未 init()。');
         return this._vm;
     }
-
-    protected onLoad(): void {
-        if (!this._initialized) {
-            try { this.init(); } catch { /* 需要外部注入则忽略 */ }
-        }
+    /**
+     * 初始化视图和 ViewModel
+     */
+    init() {
+        const vm = this.initViewModel();
+        this._vm = vm;
+        this.onViewModelReady(vm);
     }
-
+    /**
+     * 销毁时，释放 ViewModel
+     */
     protected onDestroy(): void {
+        if (this._vm && typeof this._vm.dispose === 'function') {
+            this._vm.dispose();
+        }
         this._vm = undefined;
     }
 }

@@ -1,5 +1,8 @@
-import { Node, director } from "cc";
+import { Node } from "cc";
 
+/**
+ * UI 层级枚举
+ */
 export enum LayerEnum {
   Normal = "normal",
   Popup = "popup",
@@ -7,6 +10,9 @@ export enum LayerEnum {
   System = "system"
 }
 
+/**
+ * 各层级节点
+ */
 interface LayerNodes {
   [LayerEnum.Normal]: Node;
   [LayerEnum.Popup]: Node;
@@ -14,6 +20,9 @@ interface LayerNodes {
   [LayerEnum.System]: Node;
 }
 
+/**
+ * UI 层级管理
+ */
 export class UILayers {
   private static _inst: UILayers;
   static get instance() {
@@ -26,14 +35,13 @@ export class UILayers {
   private layers: LayerNodes;
 
   init(root: Node) {
-    // 已存在则直接使用
     const ensure = (name: string) => {
-      let n = root.getChildByName(name);
-      if (!n) {
-        n = new Node(name);
-        root.addChild(n);
+      let child = root.getChildByName(name);
+      if (!child) {
+        child = new Node(name);
+        root.addChild(child);
       }
-      return n;
+      return child;
     };
     this.layers = {
       normal: ensure("Layer_Normal"),
@@ -43,19 +51,7 @@ export class UILayers {
     };
   }
 
-  /** 如果还没 init，则尝试用场景第一个根结点自动初始化 */
-  private ensure() {
-    if (this.layers) return;
-    const scene = director.getScene();
-    if (!scene || scene.children.length === 0) {
-      throw new Error('[UILayers] cannot auto-initialize (scene empty). Call UILayers.instance.init(rootNode) first.');
-    }
-    this.init(scene.children[0]);
-  }
-
   getLayerNode(layer: LayerEnum) {
-    this.ensure();
-    const l = this.layers;
-    return l[layer];
+    return this.layers[layer];
   }
 }

@@ -1,94 +1,98 @@
-import { resources, Prefab, instantiate, Node } from 'cc';
+import { Prefab, instantiate, Node, AssetManager } from 'cc';
 import { UIKey } from './UIKey';
-import { UIRegistry } from './UIRegistry';
 import { UILayers, LayerEnum } from './UILayers';
 import { UIView } from './UIView';
 
-interface ActiveView {
+/**
+ * 活动视图缓存
+ */
+interface IViewCache {
     key: UIKey;
-    node: Node;
-    layer: LayerEnum;
-    vm?: any;
+    view: UIView;
 }
-
+/**
+ * UI 管理器
+ */
 export class UIManager {
     private static _inst: UIManager;
     static get instance() {
         if (!this._inst) this._inst = new UIManager();
         return this._inst;
     }
+    // 活动视图缓存
+    private viewCaches: IViewCache[] = [];
+    private _openChain: Promise<any> = Promise.resolve();
 
-    private actives: ActiveView[] = [];
+    init(root: Node) {
+        UILayers.instance.init(root);
+    }
 
-    async open(
-        key: UIKey,
-        options: { layer?: LayerEnum } = {}
-    ): Promise<Node> {
-        const reg = UIRegistry.instance.get(key);
-        if (!reg) throw new Error(`[UIManager] UIKey not registered: ${key}`);
-
+    async open(key: UIKey): Promise<UIView> {
+        // 串行化：把真正打开逻辑放入链
+        this._openChain = this._openChain.then(() => this._doOpen(key));
+        return this._openChain;
+    }
+    /**
+     * 打开一个 UI 界面
+     * @param key UIKey
+     * @param options 
+     * @returns 
+     */
+    private async _doOpen(key: UIKey): Promise<UIView> {
+        let bundle = AssetManager.instance.getBundle(key.bundle);
+        if (!bundle) {
+            bundle = await new Promise((resolve, reject) => {
+                AssetManager.instance.loadBundle(key.bundle, (err, b) => {
+                    if (err || !b) return reject(err);
+                    resolve(b);
+                });
+            });
+        }
         const prefab: Prefab = await new Promise((resolve, reject) => {
-            resources.load(reg.prefabPath, Prefab, (err, asset) => {
+            bundle.load(key.path, Prefab, (err, asset) => {
                 if (err || !asset) return reject(err);
                 resolve(asset);
             });
         });
 
         const node = instantiate(prefab);
-        const layer = options.layer || LayerEnum.Normal;
-        UILayers.instance.getLayerNode(layer).addChild(node);
-
-        let vm: any;
-        if (reg.createViewModel) {
-            vm = reg.createViewModel();
-        }
-
-        // 1) 优先：如果有 UIView 子类
-        if (reg.viewComponent) {
-            const comp = node.getComponent(reg.viewComponent as any);
-            if (comp) {
-                if ((comp as any).__isUIView && typeof (comp as UIView).init === 'function') {
-                    (comp as UIView).init(vm); // UIView 负责自建或使用传入 VM
-                } else if (vm && typeof (comp as any).setupBindings === 'function') {
-                    // 2) 兼容旧方案 setupBindings(vm)
-                    (comp as any).setupBindings(vm);
-                }
-            } else {
-                console.warn(
-                    `[UIManager] viewComponent ${reg.viewComponent.name} not found on prefab ${reg.prefabPath}`
-                );
-            }
-        }
-
-        this.actives.push({ key, node, layer, vm });
-        return node;
+        const view = node.getComponent(UIView);
+        view && view.init();
+        UILayers.instance.getLayerNode(view.layer).addChild(node);
+        this.viewCaches.push({ key, view });
+        return view;
     }
 
+    /**
+     * 关闭一个 UI 界面
+     * @param key UIKey
+     * @returns 
+     */
     async close(key: UIKey) {
-        for (let i = this.actives.length - 1; i >= 0; i--) {
-            const a = this.actives[i];
-            if (a.key === key) {
-                a.node.removeFromParent();
-                a.node.destroy();
-                this.actives.splice(i, 1);
+        for (let i = this.viewCaches.length - 1; i >= 0; i--) {
+            const cache = this.viewCaches[i];
+            if (cache.key === key) {
+                cache.view.node.removeFromParent();
+                cache.view.node.destroy();
+                this.viewCaches.splice(i, 1);
                 return;
             }
         }
     }
 
     async closeAll(layer?: LayerEnum) {
-        for (let i = this.actives.length - 1; i >= 0; i--) {
-            const a = this.actives[i];
-            if (!layer || a.layer === layer) {
-                a.node.removeFromParent();
-                a.node.destroy();
-                this.actives.splice(i, 1);
+        for (let i = this.viewCaches.length - 1; i >= 0; i--) {
+            const cache = this.viewCaches[i];
+            if (!layer || cache.view.layer === layer) {
+                cache.view.node.removeFromParent();
+                cache.view.node.destroy();
+                this.viewCaches.splice(i, 1);
             }
         }
     }
 
     getOpenCount(key?: UIKey) {
-        if (!key) return this.actives.length;
-        return this.actives.filter(a => a.key === key).length;
+        if (!key) return this.viewCaches.length;
+        return this.viewCaches.filter(a => a.key === key).length;
     }
 }

@@ -1,9 +1,17 @@
-export interface IPropertyChanged {
-    addPropertyChangedListener(listener: (property: string, value: any) => void): void;
-    removePropertyChangedListener(listener: (property: string, value: any) => void): void;
-}
+import { IPropertyChanged } from './IPropertyChanged';
 
-export class PropertyChanged implements IPropertyChanged {
+export interface IViewModel extends IPropertyChanged {
+    // 可选：统一生命周期
+    dispose(): void;
+}
+/**
+ * 视图模型接口
+ */
+export class ViewModel implements IViewModel {
+    // 可选：统一生命周期
+    dispose(): void {
+        // 释放资源
+    }
     private listeners: Array<(property: string, value: any) => void> = [];
 
     addPropertyChangedListener(listener: (property: string, value: any) => void): void {

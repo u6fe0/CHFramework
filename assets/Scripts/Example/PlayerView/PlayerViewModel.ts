@@ -1,6 +1,9 @@
-import { Observable, Command, PropertyChanged } from '../../CHFramework/Framework';
+import { Observable, Command, ViewModel } from '../../CHFramework/Framework';
 import { PlayerModel } from './PlayerModel';
-export class PlayerViewModel extends PropertyChanged {
+/**
+ * 玩家视图模型
+ */
+export class PlayerViewModel extends ViewModel {
     name: Observable<string>;
     hp: Observable<number>;
     damageCommand: Command;

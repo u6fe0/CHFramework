@@ -1,5 +1,8 @@
 export type Observer<T> = (value: T) => void;
 
+/**
+ * 观察者模式实现
+ */
 export class Observable<T> {
     private _value: T;
     private observers: Observer<T>[] = [];
@@ -19,10 +22,17 @@ export class Observable<T> {
         }
     }
 
+    /**
+     * 订阅观察者
+     * @param observer 
+     */
     subscribe(observer: Observer<T>): void {
         this.observers.push(observer);
     }
-
+    /**
+     * 取消订阅观察者
+     * @param observer
+     */
     unsubscribe(observer: Observer<T>): void {
         this.observers = this.observers.filter(o => o !== observer);
     }

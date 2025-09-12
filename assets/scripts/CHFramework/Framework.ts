@@ -12,17 +12,17 @@ import type { IFactory } from "./Runtime/Framework/Prefs/IFactory";
 import { Binder } from "./Runtime/Framework/Binding/Binder";
 import { Command } from "./Runtime/Framework/Binding/Command";
 import { Observable } from "./Runtime/Framework/Binding/Observable";
-import { PropertyChanged } from "./Runtime/Framework/Binding/PropertyChanged";
 import { LabelAdapter, EditBoxAdapter } from "./Runtime/Framework/Binding/IUIAdapter";
 
 import { UILayers } from "./Runtime/Framework/Views/UI/Core/UILayers";
 import { UIManager } from "./Runtime/Framework/Views/UI/Core/UIManager";
 import { UIKey } from "./Runtime/Framework/Views/UI/Core/UIKey";
-import { UIRegistry } from "./Runtime/Framework/Views/UI/Core/UIRegistry";
+import { UIView } from "./Runtime/Framework/Views/UI/Core/UIView";
 import { UILayerConfig } from "./Runtime/Framework/Views/UI/Core/UILayerConfig";
+import { IViewModel, ViewModel } from "./Runtime/Framework/Binding/IViewModel";
 
 // 接口
-export type { IFactory };
+export type { IFactory, IViewModel };
 
 // 类
 export {
@@ -33,13 +33,13 @@ export {
     Binder,
     Command,
     Observable,
-    PropertyChanged,
     LabelAdapter,
     EditBoxAdapter,
 
     UILayers,
     UIManager,
     UIKey,
-    UIRegistry,
     UILayerConfig,
+    UIView,
+    ViewModel
 };
