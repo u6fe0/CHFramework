@@ -1,0 +1,1 @@
+[{"id":101,"title":"铜币","type":2,"quality":1,"desc":"通用资源货币"},{"id":102,"title":"银币","type":2,"quality":2,"desc":"通用资源货币"},{"id":103,"title":"金币","type":2,"quality":3,"desc":"通用资源货币"},{"id":105,"title":"骰子","type":3,"quality":5,"desc":"可随机获得一件物品"},{"id":106,"title":"钥匙","type":5,"quality":4,"desc":"可开启一个宝箱"}]

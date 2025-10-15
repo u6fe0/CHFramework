@@ -1,0 +1,14 @@
+{
+  "__version__": "1.0.1",
+  "builder": {
+    "common": {
+      "polyfills": {
+        "asyncFunctions": true
+      },
+      "binGroupConfig": {
+        "threshold": 16,
+        "enable": false
+      }
+    }
+  }
+}

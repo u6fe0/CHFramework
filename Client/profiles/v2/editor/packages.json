@@ -1,0 +1,18 @@
+{
+  "disable-packages": {
+    "D:\\Users\\chenhao": {
+      "chenhao\\ResearchWorks\\CHFramework\\extensions\\vue-element-plus-template": {
+        "name": "vue-element-plus-template",
+        "time": 1759026911944
+      },
+      "chenhao\\ResearchWorks\\CHFramework\\extensions\\chframework-tool222": {
+        "name": "chframework-tool222",
+        "time": 1759047338330
+      },
+      "chenhao\\ResearchWorks\\CHFramework\\Client\\extensions\\chframework-tool222": {
+        "name": "chframework-tool222",
+        "time": 1759047866683
+      }
+    }
+  }
+}

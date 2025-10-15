@@ -1,0 +1,81 @@
+{
+    "name": "chframework-tool",
+    "version": "0.0.0",
+    "package_version": 2,
+    "type": "module",
+    "main": "./dist/browser.cjs",
+    "scripts": {
+        "dev": "npm run build -- --mode development",
+        "build": "vue-tsc -b && vite build"
+    },
+    "dependencies": {
+        "adm-zip": "^0.5.10",
+        "element-plus": "^2.8.6",
+        "vue": "^3.4.37",
+        "xlsx": "^0.18.5"
+    },
+    "devDependencies": {
+        "@cocos-fe/vite-plugin-cocos-panel": "^1.0.3",
+        "@cocos/creator-types": "^3.8.6",
+        "@types/adm-zip": "^0.5.7",
+        "@types/node": "^22.15.21",
+        "@vitejs/plugin-vue": "^5.2.2",
+        "@vue/tsconfig": "^0.7.0",
+        "rollup-plugin-node-externals": "^7.1.3",
+        "typescript": "^5.8.2",
+        "unplugin-auto-import": "^0.18.6",
+        "unplugin-vue-components": "^0.27.5",
+        "vite": "^5.4.1",
+        "vue-tsc": "^2.1.10"
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "i18n:chframework-tool.title",
+                "label": "i18n:chframework-tool.menu.excel_tool",
+                "message": "open_excel_tool"
+            }
+        ],
+        "messages": {
+            "open_excel_tool": {
+                "methods": [
+                    "open_excel_tool"
+                ]
+            },
+            "open_mvvm_generator": {
+                "methods": [
+                    "open_mvvm_generator"
+                ]
+            }
+        },
+        "assets": {
+            "menu": {
+                "methods": "./dist/assetsMenu.cjs",
+                "assetMenu": "onAssetMenu"
+            }
+        }
+    },
+    "panels": {
+        "excelToolPanel": {
+            "main": "./dist/excelPanel.cjs",
+            "title": "Excel 工具",
+            "size": {
+                "min-width": 400,
+                "min-height": 300,
+                "width": 800,
+                "height": 700
+            }
+        },
+        "mvvmGeneratorPanel": {
+            "main": "./dist/mvvmPanel.cjs",
+            "title": "MVVM 生成器",
+            "size": {
+                "min-width": 400,
+                "min-height": 300,
+                "width": 800,
+                "height": 700
+            }
+        }
+    },
+    "author": "Cocos Creator"
+}
