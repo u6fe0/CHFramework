@@ -49,15 +49,12 @@ CHFramework 是一个专为 Cocos Creator 引擎设计的轻量级 MVVM (Model-V
 `ViewService` 是一个强大的 UI 管理器，它简化了 UI 的创建和流程控制。
 
 - **`ViewService`**: 负责 UI 视图的加载、显示、隐藏、销毁和链式操作（串行化打开）。
-- **`UIView`**: 所有 UI 视图的基类，包含生命周期钩子（`onCreate` / `onShown` / `onHide` / `onDismiss`）。
+- **`ViewBase`**: 所有 UI 视图的基类，包含生命周期钩子（`onCreate` / `onShown` / `onHide` / `onDismiss`）。
 - **`ViewModelBase`**: 视图模型的基类，负责处理视图的业务逻辑和状态。
 - **`UILayers`**: 支持 UI 分层管理（`ViewType.Normal` / `ViewType.Popup` / `ViewType.Toast`），可轻松控制不同 UI 界面的显示层级与遮罩。
-- **`UIKey`**: 每个 UI 视图的唯一标识，用于 `openUI` / `closeUI` / `getView` 等操作。
 - **遮罩与 Loading**:
   - `ViewMask`: 在打开弹窗时自动插入背景遮罩，支持点击关闭。
   - `ViewLoadingUIBase`: 自定义 Loading 界面基类，可在 `openUI` 时显示加载进度。
-
-> **注意**: `HttpService` 在初始化时会根据当前平台自动选择合适的适配器；也可手动指定 `adapter` 参数。
 
 ### 4. 数据表服务 (Table Service)
 
