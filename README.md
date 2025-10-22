@@ -128,6 +128,15 @@ CHFramework/
 └─ Excels/                           # Excel 配置表源文件
 ```
 
+## 框架视频教学
+[CHFramework 框架教学视频：概览](https://www.bilibili.com/video/BV1tCs4zNEDf/)
+[CHFramework 框架教学视频：表格](https://www.bilibili.com/video/BV1ySs4zcEmY/)
+[CHFramework 框架教学视频：快捷创建MVVM](https://www.bilibili.com/video/BV1Fks8zYEST/)
+[CHFramework 框架教学视频：组件绑定](https://www.bilibili.com/video/BV1J1s8zhEvX/)
+[CHFramework 框架教学视频：音频播放](https://www.bilibili.com/video/BV1LVs8zpE7U/)
+[CHFramework 框架教学视频：网络请求](https://www.bilibili.com/video/BV1ENs8zZEDY/)
+[CHFramework 框架教学视频：命令封装](https://www.bilibili.com/video/BV1BTs8z4ErF/)
+[CHFramework 框架教学视频：自定义](https://www.bilibili.com/video/BV1a7s8zSEdt/)
 ## 许可证
 
 MIT License
