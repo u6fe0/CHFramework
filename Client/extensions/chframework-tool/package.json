@@ -46,6 +46,11 @@
                 "methods": [
                     "open_mvvm_generator"
                 ]
+            },
+            "convert-excel": {
+                "methods": [
+                    "convertExcel"
+                ]
             }
         },
         "assets": {
