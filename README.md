@@ -2,8 +2,8 @@
 
 ## 简介
 
-CHFramework 是一个专为 Cocos Creator 引擎设计的轻量级 MVVM (Model-View-ViewModel) 框架。
-通过引入数据绑定、命令模式、UI管理、网络服务、数据表服务以及编辑器扩展工具等一系列功能，可快速构建结构清晰、可维护性高、易于扩展的项目。
+CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。
+引入数据绑定、命令模式、UI管理、网络服务、数据表服务以及编辑器扩展工具等一系列功能，可快速构建结构清晰、可维护性高、易于扩展的项目。
 
 ## 核心功能
 
@@ -26,8 +26,6 @@ CHFramework 是一个专为 Cocos Creator 引擎设计的轻量级 MVVM (Model-V
   - `LabelAdapter`: 用于 `Label`（始终返回 `string`）
   - `EditBoxAdapter`: 用于 `EditBox`（双向输入）
   - `SliderAdapter`: 用于 `Slider`（数值绑定）
-  - `ToggleAdapter`: 用于 `Toggle`（布尔绑定）
-  - `LabelNumberAdapter`: 专门用于 Label 显示数值并返回 `number` 类型
   - `……`
 - 示例：图中 “想要的新昵称”，会随着输入框的内容变化时自动更新，仅需下面一行绑定代码。
 ``` TypeScript
@@ -81,7 +79,6 @@ items.forEach(item => {
 框架提供了名为 **Excel 工具** 的插件，用于快速将 Excel 表格转换为项目可用的 JSON 数据与 TypeScript 模型定义。
 
 **功能**:
-- 选择 Excel 源目录、JSON 输出目录、Model 输出目录
 - 一键执行转换（支持 `.xlsx` 格式）
 
 **生成内容**:
@@ -89,7 +86,7 @@ items.forEach(item => {
 - TableModel.ts: 存放于指定的 Model 输出目录，包含所有表格的接口定义（如 `IHero` / `IItem`），继承自 `ITableModel`
 
 **打开方式**:
-在 Cocos Creator 菜单栏中选择 **CHFramework工具 > Excel 转换工具** 即可打开面板。
+CocosCreator 菜单栏中选择 **CHFramework工具 > Excel 转换工具**。
 
 ## 项目展示
 
@@ -143,7 +140,7 @@ CHFramework/
 
 [CHFramework 框架教学视频：命令封装](https://www.bilibili.com/video/BV1BTs8z4ErF/)
 
-[CHFramework 框架教学视频：自定义](https://www.bilibili.com/video/BV1a7s8zSEdt/)
+[CHFramework 框架教学视频：自定义扩展](https://www.bilibili.com/video/BV1a7s8zSEdt/)
 ## 许可证
 
 MIT License
