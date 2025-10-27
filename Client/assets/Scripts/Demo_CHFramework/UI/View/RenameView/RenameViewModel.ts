@@ -1,4 +1,4 @@
-import { Context, EventTrigger, ViewModelBase, ViewService, AsyncCommand, GameUtil, BindModel, SimpleCommand, CompositeCommand } from '../../../../CHFramework/Framework';
+import { Context, EventTrigger, ViewModelBase, ViewService, AsyncCommand, GameUtil, BindModel } from '../../../../CHFramework/Framework';
 import { GameEvent } from '../../../Constant/GameEvent';
 import { ViewKeys } from '../../../Constant/ViewKeys';
 import { AudioService } from '../../../Services/Audio/AudioService';

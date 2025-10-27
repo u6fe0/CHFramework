@@ -1,4 +1,4 @@
-import { EditBox, Label, Slider, Toggle } from "cc";
+import { EditBox, Label, Slider, Toggle, UIOpacity, ProgressBar } from "cc";
 
 // 定义适配器接口
 export interface IUIAdapter<T> {
@@ -49,4 +49,20 @@ export class ToggleAdapter implements IUIAdapter<boolean> {
     onChange(callback: (value: boolean) => void) {
         this.toggle.node.on(Toggle.EventType.TOGGLE, () => callback(this.toggle.isChecked));
     }
+}
+
+// Opacity Adapter
+export class OpacityAdapter implements IUIAdapter<number> {
+    constructor(private uiOpacity: UIOpacity) { }
+    setValue(value: number) { this.uiOpacity.opacity = value; }
+    getValue() { return this.uiOpacity.opacity; }
+    onChange(_: (value: number) => void): void { }
+}
+
+// ProgressBar Adapter
+export class ProgressBarAdapter implements IUIAdapter<number> {
+    constructor(private progressBar: ProgressBar) { }
+    setValue(value: number) { this.progressBar.progress = value; }
+    getValue() { return this.progressBar.progress; }
+    onChange(_: (value: number) => void): void { }
 }

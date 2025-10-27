@@ -6,7 +6,14 @@
 
 import { Binder } from "./Runtime/Framework/Binding/Binder";
 import { Observable } from "./Runtime/Framework/Binding/Observable";
-import { LabelAdapter, EditBoxAdapter, SliderAdapter, ToggleAdapter } from "./Runtime/Framework/Binding/IUIAdapter";
+import {
+    LabelAdapter,
+    EditBoxAdapter,
+    SliderAdapter,
+    ToggleAdapter,
+    OpacityAdapter,
+    ProgressBarAdapter
+} from "./Runtime/Framework/Binding/IUIAdapter";
 // Context
 import { Context } from "./Runtime/Framework/Contexts/Context";
 // Command
@@ -54,10 +61,14 @@ export type {
 export {
     Binder,
     Observable,
+
+    // Adapters
     LabelAdapter,
     EditBoxAdapter,
     SliderAdapter,
     ToggleAdapter,
+    OpacityAdapter,
+    ProgressBarAdapter,
 
     // Command
     CommandBase,
