@@ -481,7 +481,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 495,
+      "y": 485,
       "z": 0
     },
     "_lrot": {
@@ -740,7 +740,7 @@
     "fileId": "98ekjiePdFb7ulIwKjIzpY"
   },
   {
-    "__type__": "cc.Widget",
+    "__type__": "2f1a7Inl9BEAI5KbY/Gonah",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -752,13 +752,11 @@
       "__id__": 30
     },
     "_alignFlags": 1,
-    "_target": {
-      "__id__": 1
-    },
-    "_left": 185,
-    "_right": 185,
-    "_top": 90,
-    "_bottom": 1215.114,
+    "_target": null,
+    "_left": 0,
+    "_right": 0,
+    "_top": 100,
+    "_bottom": 250,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
     "_isAbsLeft": true,
@@ -767,15 +765,15 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 350,
-    "_originalHeight": 90,
+    "_originalWidth": 0,
+    "_originalHeight": 110,
     "_alignMode": 2,
     "_lockFlags": 0,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "b0qguC6EZGZ53OgqRhrb1t"
+    "fileId": "5bhqUUpExCRIGmwsm3k0bu"
   },
   {
     "__type__": "cc.PrefabInfo",
