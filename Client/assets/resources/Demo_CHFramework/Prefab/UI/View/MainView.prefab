@@ -756,7 +756,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 100,
-    "_bottom": 250,
+    "_bottom": 1070,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
     "_isAbsLeft": true,
@@ -769,6 +769,9 @@
     "_originalHeight": 110,
     "_alignMode": 2,
     "_lockFlags": 0,
+    "_isTopSafeAreaAdapter": true,
+    "_isTopMenuButtonAdapter": false,
+    "_isBottomSafeAreaAdapter": false,
     "_id": ""
   },
   {

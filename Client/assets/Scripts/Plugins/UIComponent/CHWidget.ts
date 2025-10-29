@@ -23,6 +23,7 @@ export class CHWidget extends Widget {
         this._isTopSafeAreaAdapter = value;
         this.isAlignTop = value;
     }
+    @property({ serializable: true })
     private _isTopSafeAreaAdapter = false;
     @property({
         displayName: "顶部胶囊区域适配",
@@ -38,6 +39,7 @@ export class CHWidget extends Widget {
         this._isTopMenuButtonAdapter = value;
         this.isAlignTop = value;
     }
+    @property({ serializable: true })
     private _isTopMenuButtonAdapter = false;
     @property({
         displayName: "底部安全区域适配",
@@ -50,24 +52,29 @@ export class CHWidget extends Widget {
         this._isBottomSafeAreaAdapter = value;
         this.isAlignBottom = value;
     }
+    @property({ serializable: true })
     private _isBottomSafeAreaAdapter = false;
 
     // 系统信息缓存
     private static _systemInfo: any = null;
     get systemInfo() {
-        if (!CHWidget._systemInfo && sys.platform == sys.Platform.WECHAT_GAME) {
-            CHWidget._systemInfo = window.wx.getSystemInfoSync();
-            console.log("System Info safeArea:", CHWidget._systemInfo.safeArea);
+        if (!CHWidget._systemInfo) {
+            if (sys.platform === sys.Platform.WECHAT_GAME) {
+                CHWidget._systemInfo = window.wx.getSystemInfoSync();
+            } else if (sys.platform === sys.Platform.BYTEDANCE_MINI_GAME) {
+                CHWidget._systemInfo = window.tt.getSystemInfoSync();
+            } else {
+                // 保底-其他平台
+                if (window.wx && window.wx.getSystemInfoSync) {
+                    CHWidget._systemInfo = window.wx.getSystemInfoSync();
+                }
+            }
         }
         return CHWidget._systemInfo;
     }
 
     protected start(): void {
-        if (EDITOR) {
-            return;
-        }
-        super.start();
-        if (sys.platform == sys.Platform.WECHAT_GAME) {
+        if ((sys.platform == sys.Platform.WECHAT_GAME || sys.platform == sys.Platform.BYTEDANCE_MINI_GAME)) {
             if (this.isTopSafeAreaAdapter || this.isTopMenuButtonAdapter) {
                 const safeTop = this.getSafeAreaTop();
                 this.top += safeTop;
@@ -86,7 +93,7 @@ export class CHWidget extends Widget {
      * @returns 底部安全适配高度
      */
     private getSafeAreaBottom() {
-        if (sys.platform == sys.Platform.WECHAT_GAME && this.systemInfo.safeArea) {
+        if (this.systemInfo && this.systemInfo.safeArea) {
             const windowHeight = this.systemInfo.windowHeight;
             const gameHeight = view.getVisibleSize().height;
             const ratio = gameHeight / windowHeight;
@@ -100,7 +107,7 @@ export class CHWidget extends Widget {
      * @returns 顶部安全适配高度
      */
     private getSafeAreaTop() {
-        if (sys.platform == sys.Platform.WECHAT_GAME && this.systemInfo.safeArea) {
+        if (this.systemInfo && this.systemInfo.safeArea) {
             const windowHeight = this.systemInfo.windowHeight;
             const gameHeight = view.getVisibleSize().height;
             const ratio = gameHeight / windowHeight;
