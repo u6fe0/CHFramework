@@ -1,5 +1,4 @@
 export type Observer<T> = (value: T) => void;
-
 /**
  * 观察者模式实现
  */
