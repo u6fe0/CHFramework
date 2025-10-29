@@ -4,6 +4,7 @@ import { AudioService } from '../../Demo_CHFramework/Services/Audio/AudioService
 const { ccclass, property, menu } = _decorator;
 import { Enum } from "cc";
 /**
+ * author: CHFramework
  * 带点击音效的按钮组件
  * 继承自cc.Button
  */

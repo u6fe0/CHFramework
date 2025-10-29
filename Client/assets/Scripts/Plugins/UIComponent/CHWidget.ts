@@ -1,7 +1,7 @@
-import { _decorator, sys, UITransform, v3, view, Widget } from 'cc';
-import { EDITOR } from 'cc/env';
+import { _decorator, sys, view, Widget } from 'cc';
 const { ccclass, property, menu } = _decorator;
 /**
+ * author: CHFramework
  * 安全区域适配组件
  * 用于适配不同设备的安全区域，避免UI被刘海、胶囊遮挡
  */
