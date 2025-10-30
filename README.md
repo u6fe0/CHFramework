@@ -17,7 +17,6 @@ CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。
 ## 模块详解
 
 ### 1. 数据绑定 (Data Binding)
-
 数据绑定是框架的核心功能之一，它允许视图自动响应数据的变化。
 
 - **`Observable`**: 可观察属性类。使用它来包装你的数据，当数据改变时，它会自动通知所有订阅者。
@@ -35,7 +34,6 @@ CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。
 
 
 ### 2. 命令模式 (Command Pattern)
-
 命令模式用于处理用户输入和系统事件，例如按钮点击。
 
 - **`CommandBase`**: 所有命令的基类。
@@ -43,7 +41,6 @@ CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。
 - **`AsyncCommand`**: 用于执行异步操作（如网络请求、动画播放）的命令，支持 `canExecute()` 条件控制与 `canExecuteChanged()` 回调。
 
 ### 3. UI 管理 (UI Management)
-
 `ViewService` 是一个强大的 UI 管理器，它简化了 UI 的创建和流程控制。
 
 - **`ViewService`**: 负责 UI 视图的加载、显示、隐藏、销毁和链式操作（串行化打开）。
@@ -55,7 +52,6 @@ CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。
   - `ViewLoadingUIBase`: 自定义 Loading 界面基类，可在 `openUI` 时显示加载进度。
 
 ### 4. 数据表服务 (Table Service)
-
 用于加载和查询游戏配置数据。
 
 - **`TableReaderService`**: 数据表读取服务，支持通过键（通常是 `id`）快速查询。
@@ -75,7 +71,6 @@ items.forEach(item => {
 ```
 
 ### 5. 插件
-
 框架提供了名为 **Excel 工具** 的插件，用于快速将 Excel 表格转换为项目可用的 JSON 数据与 TypeScript 模型定义。
 
 **功能**:
@@ -87,6 +82,11 @@ items.forEach(item => {
 
 **打开方式**:
 CocosCreator 菜单栏中选择 **CHFramework工具 > Excel 转换工具**。
+
+### 6. 拓展组件
+1. CHButton：增加了音效播放模块
+2. MultiStageProgressBar：支持将进度条分为多个阶段，每个阶段可以有不同的长度和进度值
+3. CHWidget：安全区域适配组件，用于适配不同设备的安全区域，避免UI被刘海、胶囊遮挡
 
 ## 项目展示
 
