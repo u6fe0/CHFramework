@@ -47,6 +47,7 @@ import { DefaultViewUILoading } from "./Runtime/Framework/Services/UI/View/Loadi
 // Utils
 import { EventTrigger } from "./Runtime/Framework/Utils/EventTrigger";
 import { GameUtil } from "./Runtime/Framework/Utils/GameUtil";
+import { ResUtil } from "./Runtime/Framework/Utils/ResUtil";
 // 接口
 export type {
     // Table
@@ -101,6 +102,7 @@ export {
     // Utils
     EventTrigger,
     GameUtil,
+    ResUtil,
 
     // Contexts
     Context

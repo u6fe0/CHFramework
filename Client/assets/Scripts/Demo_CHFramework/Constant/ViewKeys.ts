@@ -6,6 +6,6 @@ export const ViewKeys = {
     RenameView: new UIKey(defaultPathPrefix + 'RenameView', defaultBundle),
     DialogView: new UIKey(defaultPathPrefix + 'DialogView', defaultBundle),
     SettingView: new UIKey(defaultPathPrefix + 'SettingView', defaultBundle),
-    ShopView: new UIKey(defaultPathPrefix + 'ShopView', defaultBundle),
+    ShopView: new UIKey(defaultPathPrefix + 'ShopView/ShopView', defaultBundle),
     // ...
 };

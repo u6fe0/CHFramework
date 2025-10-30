@@ -31,6 +31,8 @@ export class MainView extends ViewBase<MainViewModel> {
     httpRequestBtn: Button = null!; // HTTP请求按钮
     @property(Button)
     openSettingUIBtn: Button = null!; // 设置按钮
+    @property(Button)
+    openShopUIBtn: Button = null!; // 商店按钮
     @property(Label)
     tableInfoLb: Label = null!; // 表格信息
     /**
@@ -76,6 +78,10 @@ export class MainView extends ViewBase<MainViewModel> {
             }).catch((err) => {
                 console.error('打开 View 失败', err);
             });
+        });
+
+        this.openShopUIBtn.node.on(Button.EventType.CLICK, () => {
+            Context.getService(ViewService).openUI(ViewKeys.ShopView);
         });
 
         // 读取表格
