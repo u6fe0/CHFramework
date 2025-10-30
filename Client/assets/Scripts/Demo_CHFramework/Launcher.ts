@@ -7,6 +7,7 @@ import { CustomViewLoadingUI } from './UI/UILoading/CustomViewLoadingUI';
 import { PlayerPrefService } from './Services/Preference/PlayerPref/PlayerPrefService';
 import { AudioService } from './Services/Audio/AudioService';
 import { GamePrefService } from './Services/Preference/GamePref/GamePrefService';
+import { DeviceService } from './Services/Device/DeviceService';
 const { ccclass } = _decorator;
 /**
  * 启动入口脚本
@@ -43,7 +44,7 @@ export class Launcher extends Component {
             bundleName: "resources",
             pathPrefix: "Demo_CHFramework/Audio"
         }));
-
+        container.register(new DeviceService());
     }
     /**
      * 打开主界面

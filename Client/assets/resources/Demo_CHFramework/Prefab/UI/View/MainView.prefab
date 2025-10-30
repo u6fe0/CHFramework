@@ -1196,7 +1196,8 @@
     "_duration": 0.1,
     "_zoomScale": 1.2,
     "_target": null,
-    "clickAudioType": "click",
+    "audioType": "click",
+    "vibrateType": "Short",
     "_id": ""
   },
   {
@@ -1555,7 +1556,8 @@
     "_duration": 0.1,
     "_zoomScale": 1.2,
     "_target": null,
-    "clickAudioType": "click",
+    "audioType": "click",
+    "vibrateType": "Short",
     "_id": ""
   },
   {
@@ -1914,7 +1916,8 @@
     "_duration": 0.1,
     "_zoomScale": 1.2,
     "_target": null,
-    "clickAudioType": "click",
+    "audioType": "click",
+    "vibrateType": "Short",
     "_id": ""
   },
   {
@@ -2273,7 +2276,8 @@
     "_duration": 0.1,
     "_zoomScale": 1.2,
     "_target": null,
-    "clickAudioType": "click",
+    "audioType": "click",
+    "vibrateType": "Short",
     "_id": ""
   },
   {

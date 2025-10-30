@@ -1,5 +1,3 @@
-# CHFramework
-
 ## 简介
 
 CHFramework 是一个专为 CocosCreator 引擎设计的轻量级 MVVM 框架。

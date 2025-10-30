@@ -8,6 +8,7 @@ export class SettingModel extends ModelBase {
     isBgmOn: Observable<boolean>; // 背景音乐开关
     sfxVolume: Observable<number>; // 音效音量
     isSfxOn: Observable<boolean>; // 音效开关
+    isVibrateOn: Observable<boolean>; // 振动开关
     // 引用持久化服务
     private gamePrefService: GamePrefService;
 
@@ -18,6 +19,7 @@ export class SettingModel extends ModelBase {
         this.isBgmOn = new Observable(this.gamePrefService.gamePrefModel.isBgmOn);
         this.sfxVolume = new Observable(this.gamePrefService.gamePrefModel.sfxVolume);
         this.isSfxOn = new Observable(this.gamePrefService.gamePrefModel.isSfxOn);
+        this.isVibrateOn = new Observable(this.gamePrefService.gamePrefModel.isVibrateOn);
     }
 
     /**
@@ -52,6 +54,14 @@ export class SettingModel extends ModelBase {
      */
     setSfxEnable(enable: boolean) {
         this.gamePrefService.gamePrefModel.isSfxOn = enable;
+        this.gamePrefService.save();
+    }
+    /**
+     * 设置振动开关
+     * @param enable 
+     */
+    setVibrateEnable(enable: boolean) {
+        this.gamePrefService.gamePrefModel.isVibrateOn = enable;
         this.gamePrefService.save();
     }
 }

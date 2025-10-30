@@ -8,6 +8,7 @@ export class SettingViewModel extends ViewModelBase<SettingModel> {
     get bgmVolume() { return this.model.bgmVolume; } // 背景音乐音量
     get isSfxOn() { return this.model.isSfxOn; } // 音效开关
     get sfxVolume() { return this.model.sfxVolume; } // 音效音量
+    get isVibrateOn() { return this.model.isVibrateOn; } // 振动开关
     private audioService: AudioService;
 
     constructor() {
@@ -17,6 +18,7 @@ export class SettingViewModel extends ViewModelBase<SettingModel> {
         this.bgmVolume.on(this.onBgmSliderChanged.bind(this));
         this.isSfxOn.on(this.onSfxStateChanged.bind(this));
         this.sfxVolume.on(this.onSfxSliderChanged.bind(this));
+        this.isVibrateOn.on(this.onVibrateStateChanged.bind(this));
     }
     /**
      * 处理背景音乐开关状态变化
@@ -53,6 +55,13 @@ export class SettingViewModel extends ViewModelBase<SettingModel> {
     onSfxSliderChanged(value: number) {
         this.model.setSfxVolume(value);
         this.audioService.setSfxVolume(value);
+    }
+    /**
+     * 处理振动开关状态变化
+     * @param value 
+     */
+    onVibrateStateChanged(value: boolean) {
+        this.model.setVibrateEnable(value);
     }
 }
 

@@ -1,8 +1,8 @@
-import { _decorator, Button } from 'cc';
+import { _decorator, Button, Enum } from 'cc';
 import { Context } from '../../CHFramework/Framework';
 import { AudioService } from '../../Demo_CHFramework/Services/Audio/AudioService';
+import { DeviceService } from '../../Demo_CHFramework/Services/Device/DeviceService';
 const { ccclass, property, menu } = _decorator;
-import { Enum } from "cc";
 /**
  * author: CHFramework
  * 带点击音效的按钮组件
@@ -11,11 +11,28 @@ import { Enum } from "cc";
 const ClickAudioType = Enum({
     Normal: "click", // 普通点击音效
 });
+// 振动类型
+const ClickVibrateType = Enum({
+    None: "None", // 不振动
+    Short: "Short", // 短振动
+    Long: "Long", // 长振动
+});
 @ccclass('CHButton')
 @menu('CHFramework/UI/CHButton')
 export class CHButton extends Button {
-    @property({ type: ClickAudioType })
-    clickAudioType = ClickAudioType.Normal;
+    @property({
+        type: ClickAudioType,
+        tooltip: "点击按钮时的音效类型",
+        displayName: "音效类型"
+    })
+    audioType = ClickAudioType.Normal;
+
+    @property({
+        type: ClickVibrateType,
+        tooltip: "点击按钮时的振动类型",
+        displayName: "振动类型"
+    })
+    vibrateType = ClickVibrateType.None;
 
     protected onLoad(): void {
         this.node.on(Button.EventType.CLICK, this.onButtonClick, this);
@@ -23,9 +40,23 @@ export class CHButton extends Button {
     public onDestroy(): void {
         this.node.off(Button.EventType.CLICK, this.onButtonClick, this);
     }
+    /**
+     * 按钮点击回调
+     */
     private onButtonClick(): void {
         const audioService = Context.getService(AudioService);
-        audioService.playOneShot(this.clickAudioType);
+        audioService.playOneShot(this.audioType);
+        const deviceService = Context.getService(DeviceService);
+        switch (this.vibrateType) {
+            case ClickVibrateType.Short:
+                deviceService.vibrateShort();
+                break;
+            case ClickVibrateType.Long:
+                deviceService.vibrateLong();
+                break;
+            case ClickVibrateType.None:
+                break;
+        }
     }
 }
 

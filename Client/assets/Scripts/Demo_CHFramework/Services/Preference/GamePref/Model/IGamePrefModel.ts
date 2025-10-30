@@ -6,6 +6,7 @@ export interface IGamePrefModel {
    isBgmOn: boolean; // 是否开启背景音乐
    sfxVolume: number; // 音效音量 0.0 ~ 1.0
    isSfxOn: boolean; // 是否开启音效
+   isVibrateOn: boolean; // 是否开启振动
 }
 
 /**
@@ -16,4 +17,5 @@ export const DefaultGamePrefModel: IGamePrefModel = {
    isBgmOn: true,
    sfxVolume: 1.0,
    isSfxOn: true,
+   isVibrateOn: false,
 };

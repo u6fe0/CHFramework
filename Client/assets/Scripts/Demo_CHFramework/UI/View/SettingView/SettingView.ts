@@ -22,6 +22,8 @@ export class SettingView extends ViewBase<SettingViewModel> {
     sfxToggle: Toggle = null!; // 音效开关
     @property(Slider)
     sfxSlider: Slider = null!; // 音效滑动条
+    @property(Toggle)
+    vibrateToggle: Toggle = null!; // 振动开关
     @property(UITransform)
     sfxUITransform: UITransform = null!; // UI 变换组件
     /**
@@ -33,6 +35,7 @@ export class SettingView extends ViewBase<SettingViewModel> {
         Binder.bindTwoWay(this.vm.bgmVolume, new SliderAdapter(this.bgmSlider));
         Binder.bindTwoWay(this.vm.isSfxOn, new ToggleAdapter(this.sfxToggle));
         Binder.bindTwoWay(this.vm.sfxVolume, new SliderAdapter(this.sfxSlider));
+        Binder.bindTwoWay(this.vm.isVibrateOn, new ToggleAdapter(this.vibrateToggle));
 
         // 初始化滑动条宽度
         this.bgmUITransform.width = this.bgmSlider.progress * sliderMaxWidth;
