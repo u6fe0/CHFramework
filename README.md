@@ -85,6 +85,7 @@ CocosCreator 菜单栏中选择 **CHFramework工具 > Excel 转换工具**。
 1. CHButton：增加了音效播放模块
 2. MultiStageProgressBar：支持将进度条分为多个阶段，每个阶段可以有不同的长度和进度值
 3. CHWidget：安全区域适配组件，用于适配不同设备的安全区域，避免UI被刘海、胶囊遮挡
+4. CHScrollview: 实现可复用的高性能ScrollView组件
 
 ## 项目展示
 
@@ -101,26 +102,44 @@ CHFramework 支持多种自定义扩展方式，让开发者能够根据项目�
 
 ```
 CHFramework/
-├─ Client/
-│  ├─ assets/                    
-│  │  ├─ resources/
-│  │  │  └─ Demo_CHFramework/
-│  │  │     ├─ Audio/                # 音频资源
-│  │  │     ├─ Prefab/               # UI 预制体
-│  │  │     └─ Table/                # 转换后的 JSON 配置数据
-│  │  └─ Scripts/
-│  │     ├─ CHFramework/             # 框架核心代码
-│  │     │  └─ Runtime/              # 核心模块
-│  │     └─ Demo_CHFramework/        # 示例工程
-│  │        ├─ Constant/             # 常量定义
-│  │        ├─ Services/             # 业务服务
-│  │        ├─ TableModel/           # 自动生成的数据表模型定义
-│  │        └─ UI/                   # UI 基础组件
-│  │           ├─ Toast/             # 飘窗-可自定义
-│  │           └─ UILoading/         # 加载过渡界面-可自定义
-│  └─ extensions/
-│     └─ chframework-tool/           # 编辑器扩展工具
-└─ Excels/                           # Excel 配置表源文件
+├─ Client/                           # CocosCreator 项目根目录
+│  ├─ assets/                        # 资源目录
+│  │  ├─ CHFramework/                # 框架源码
+│  │  │  ├─ Runtime/                 # 框架核心模块
+│  │  │  │  ├─ Framework.ts          # 框架主入口文件
+│  │  │  │  └─ Framework/            
+│  │  │  │     ├─ Binding/           # 数据绑定模块（Observable、Binder、UIAdapter）
+│  │  │  │     ├─ Command/           # 命令模式模块（SimpleCommand、AsyncCommand）
+│  │  │  │     ├─ Contexts/          # 上下文与依赖注入
+│  │  │  │     ├─ Services/          # 核心服务
+│  │  │  │     │  ├─ UI/             # UI 管理服务（ViewService、UILayers）
+│  │  │  │     │  ├─ Table/          # 数据表服务（TableReaderService）
+│  │  │  │     │  └─ Network/        # 网络服务（HttpService）
+│  │  │  │     └─ Utils/             # 工具类
+│  │  │  ├─ Plugins/                 # 插件与拓展组件
+│  │  │  │  ├─ Components/           # 自定义组件（CHButton、CHWidget、CHScrollView等）
+│  │  │  │  └─ NodeLibrary/          # 节点库
+│  │  │  └─ Demo/                    # 示例工程
+│  │  │     ├─ Launcher.ts           # 游戏启动入口
+│  │  │     ├─ Constant/             # 常量定义（ViewKeys、GameEvent等）
+│  │  │     ├─ Services/             # 业务服务（AudioService、PlayerPrefService等）
+│  │  │     ├─ TableModel/           # 自动生成的数据表模型定义（TableModel.ts）
+│  │  │     └─ UI/                   # UI 相关
+│  │  │        ├─ View/              # 视图目录（MainView、RenameView等）
+│  │  │        ├─ Toast/             # Toast 提示组件（可自定义）
+│  │  │        └─ UILoading/         # 加载过渡界面（可自定义）
+│  │  └─ resources/                  # 资源目录
+│  │     └─ Demo_CHFramework/        
+│  │        ├─ Audio/                # 音频资源
+│  │        ├─ Prefab/               # UI 预制体
+│  │        ├─ Table/                # 转换后的 JSON 配置数据
+│  │        ├─ Texture/              # 纹理资源
+│  │        └─ Animations/           # 动画资源
+│  ├─ excels/                        # Excel 配置表源文件（*.xlsx）
+│  └─ extensions/                    # 编辑器扩展
+│     └─ chframework-tool/           # CHFramework 编辑器工具
+└─ Docs/                             # 文档与图片资源
+   └─ Images/                        # 演示图片
 ```
 
 ## 框架视频教学
