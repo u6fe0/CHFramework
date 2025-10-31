@@ -14,6 +14,25 @@ const _sfc_main = /* @__PURE__ */ index.defineComponent({
       FrameworkTS: ""
     });
     const converting = index.ref(false);
+    function getProjectPath() {
+      return Editor.Project && Editor.Project.path || "";
+    }
+    function toRelativePath(absolutePath) {
+      const projectPath = getProjectPath();
+      if (!projectPath || !absolutePath) return absolutePath;
+      if (absolutePath.startsWith(projectPath)) {
+        return absolutePath.substring(projectPath.length).replace(/^[\\\/]/, "");
+      }
+      return absolutePath;
+    }
+    function toAbsolutePath(relativePath) {
+      const projectPath = getProjectPath();
+      if (!projectPath || !relativePath) return relativePath;
+      if (relativePath.includes(":") || relativePath.startsWith("/")) {
+        return relativePath;
+      }
+      return `${projectPath}/${relativePath}`.replace(/\\/g, "/");
+    }
     index.onMounted(async () => {
       const keys = ["excelDir", "jsonOutDir", "modelOutDir", "FrameworkTS"];
       for (const k of keys) {
@@ -24,10 +43,10 @@ const _sfc_main = /* @__PURE__ */ index.defineComponent({
       }
     });
     async function pickDir(key) {
-      const path = form[key] || Editor.Project && Editor.Project.path || "";
+      const absolutePath = toAbsolutePath(form[key]) || getProjectPath();
       const result = await Editor.Dialog.select({
         title: "选择目录",
-        path,
+        path: absolutePath,
         type: "directory",
         multi: false
       });
@@ -36,15 +55,16 @@ const _sfc_main = /* @__PURE__ */ index.defineComponent({
         return;
       }
       if (result.filePaths && result.filePaths[0]) {
-        await Editor.Profile.setConfig("Excel_Convert_Tool", key, result.filePaths[0]);
-        form[key] = result.filePaths[0];
+        const relativePath = toRelativePath(result.filePaths[0]);
+        await Editor.Profile.setConfig("Excel_Convert_Tool", key, relativePath);
+        form[key] = relativePath;
       }
     }
     async function pickFrameworkTS() {
-      const path = form.FrameworkTS || Editor.Project && Editor.Project.path || "";
+      const absolutePath = toAbsolutePath(form.FrameworkTS) || getProjectPath();
       const result = await Editor.Dialog.select({
-        title: "选择目录",
-        path,
+        title: "选择文件",
+        path: absolutePath,
         type: "file",
         filters: [{ name: "TypeScript", extensions: ["ts"] }],
         multi: false
@@ -54,8 +74,9 @@ const _sfc_main = /* @__PURE__ */ index.defineComponent({
         return;
       }
       if (result.filePaths && result.filePaths[0]) {
-        await Editor.Profile.setConfig("Excel_Convert_Tool", "FrameworkTS", result.filePaths[0]);
-        form.FrameworkTS = result.filePaths[0];
+        const relativePath = toRelativePath(result.filePaths[0]);
+        await Editor.Profile.setConfig("Excel_Convert_Tool", "FrameworkTS", relativePath);
+        form.FrameworkTS = relativePath;
       }
     }
     async function onConvert() {
@@ -66,10 +87,10 @@ const _sfc_main = /* @__PURE__ */ index.defineComponent({
       converting.value = true;
       try {
         const ok = await Editor.Message.request(_package.name, "convert-excel", {
-          excelDir: form.excelDir,
-          jsonOutDir: form.jsonOutDir,
-          modelOutDir: form.modelOutDir,
-          FrameworkTS: form.FrameworkTS
+          excelDir: toAbsolutePath(form.excelDir),
+          jsonOutDir: toAbsolutePath(form.jsonOutDir),
+          modelOutDir: toAbsolutePath(form.modelOutDir),
+          FrameworkTS: toAbsolutePath(form.FrameworkTS)
         });
         if (ok) message({ type: "success", message: "转换完成" });
         else message({ type: "error", message: "转换失败，请查看控制台日志" });

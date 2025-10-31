@@ -16,22 +16,53 @@ const form = reactive<Record<Keys, string>>({
 
 const converting = ref(false);
 
+// 获取项目根目录
+function getProjectPath(): string {
+  return (Editor.Project && (Editor.Project as any).path) || '';
+}
+
+// 将绝对路径转换为相对于项目的路径
+function toRelativePath(absolutePath: string): string {
+  const projectPath = getProjectPath();
+  if (!projectPath || !absolutePath) return absolutePath;
+  
+  // 使用path模块进行相对路径计算（需要动态导入）
+  if (absolutePath.startsWith(projectPath)) {
+    return absolutePath.substring(projectPath.length).replace(/^[\\\/]/, '');
+  }
+  return absolutePath;
+}
+
+// 将相对路径转换为绝对路径
+function toAbsolutePath(relativePath: string): string {
+  const projectPath = getProjectPath();
+  if (!projectPath || !relativePath) return relativePath;
+  
+  // 如果已经是绝对路径，直接返回
+  if (relativePath.includes(':') || relativePath.startsWith('/')) {
+    return relativePath;
+  }
+  
+  return `${projectPath}/${relativePath}`.replace(/\\/g, '/');
+}
+
 // 面板加载时，从 Editor.Profile 读取历史配置
 onMounted(async () => {
   const keys: Keys[] = ['excelDir', 'jsonOutDir', 'modelOutDir', 'FrameworkTS'];
   for (const k of keys) {
     const v = await Editor.Profile.getConfig('Excel_Convert_Tool', k);
     if (typeof v === 'string' && v) {
+      // 将存储的相对路径显示出来
       form[k] = v;
     }
   }
 });
 
 async function pickDir(key: Keys) {
-  const path = form[key] || (Editor.Project && (Editor.Project as any).path) || '';
+  const absolutePath = toAbsolutePath(form[key]) || getProjectPath();
   const result = await Editor.Dialog.select({
       title: '选择目录',
-      path,
+      path: absolutePath,
       type: 'directory',
       multi: false,
   });
@@ -40,16 +71,18 @@ async function pickDir(key: Keys) {
     return;
   }
   if (result.filePaths && result.filePaths[0]) {
-    await Editor.Profile.setConfig('Excel_Convert_Tool', key, result.filePaths[0]);
-    form[key] = result.filePaths[0];
+    // 存储和显示相对路径
+    const relativePath = toRelativePath(result.filePaths[0]);
+    await Editor.Profile.setConfig('Excel_Convert_Tool', key, relativePath);
+    form[key] = relativePath;
   }
 }
 
 async function pickFrameworkTS() {
-  const path = form.FrameworkTS || (Editor.Project && (Editor.Project as any).path) || '';
+  const absolutePath = toAbsolutePath(form.FrameworkTS) || getProjectPath();
   const result = await Editor.Dialog.select({
-      title: '选择目录',
-      path,
+      title: '选择文件',
+      path: absolutePath,
       type: 'file',
       filters: [{ name: 'TypeScript', extensions: ['ts'] }],
       multi: false,
@@ -59,8 +92,10 @@ async function pickFrameworkTS() {
     return;
   }
   if (result.filePaths && result.filePaths[0]) {
-    await Editor.Profile.setConfig('Excel_Convert_Tool', 'FrameworkTS', result.filePaths[0]);
-    form.FrameworkTS = result.filePaths[0];
+    // 存储和显示相对路径
+    const relativePath = toRelativePath(result.filePaths[0]);
+    await Editor.Profile.setConfig('Excel_Convert_Tool', 'FrameworkTS', relativePath);
+    form.FrameworkTS = relativePath;
   }
 }
 
@@ -71,11 +106,12 @@ async function onConvert() {
   }
   converting.value = true;
   try {
+    // 将相对路径转换为绝对路径后发送给后端
     const ok = await Editor.Message.request(name, 'convert-excel', {
-      excelDir: form.excelDir,
-      jsonOutDir: form.jsonOutDir,
-      modelOutDir: form.modelOutDir,
-      FrameworkTS: form.FrameworkTS
+      excelDir: toAbsolutePath(form.excelDir),
+      jsonOutDir: toAbsolutePath(form.jsonOutDir),
+      modelOutDir: toAbsolutePath(form.modelOutDir),
+      FrameworkTS: toAbsolutePath(form.FrameworkTS)
     });
     if (ok) message({ type: 'success', message: '转换完成' });
     else message({ type: 'error', message: '转换失败，请查看控制台日志' });

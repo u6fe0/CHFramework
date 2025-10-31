@@ -27,8 +27,8 @@ export class ShopView extends ViewBase<ShopViewModel> {
         this.loadCardPanel();
     }
     /**
- * 异步加载图鉴数据
- */
+     * 异步加载图鉴数据
+     */
     async loadCardPanel() {
         const cards = await Context.getService(TableReaderService).read<ICard>("Card");
         // 初始化

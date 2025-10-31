@@ -1,6 +1,6 @@
 {
-  "excelDir": "D:\\Users\\chenhao.chenhao\\ResearchWorks\\Github\\CHFramework\\Client\\excels",
-  "jsonOutDir": "D:\\Users\\chenhao.chenhao\\ResearchWorks\\Github\\CHFramework\\Client\\assets\\resources\\Demo_CHFramework\\Table",
-  "modelOutDir": "D:\\Users\\chenhao.chenhao\\ResearchWorks\\Github\\CHFramework\\Client\\assets\\Scripts\\Demo_CHFramework\\TableModel",
-  "FrameworkTS": "D:\\Users\\chenhao.chenhao\\ResearchWorks\\Github\\CHFramework\\Client\\assets\\Scripts\\CHFramework\\Framework.ts"
+  "excelDir": "excels",
+  "jsonOutDir": "assets\\resources\\Demo_CHFramework\\Table",
+  "modelOutDir": "assets\\CHFramework\\Demo\\TableModel",
+  "FrameworkTS": "assets\\CHFramework\\Runtime\\Framework.ts"
 }
