@@ -25,6 +25,17 @@
           "assetUuid": "e5c861a2-2ed9-4f5e-afd6-366cfe7bc896",
           "icon": "packages://node-library/static/images/ui-prefab/default.png",
           "unlinkPrefab": true
+        },
+        {
+          "type": "cc.Prefab",
+          "value": "b67fcd91-cc40-447d-8589-25614a4eec23",
+          "name": "MultiStageProgressBar",
+          "extends": [
+            "cc.Asset"
+          ],
+          "assetUuid": "b67fcd91-cc40-447d-8589-25614a4eec23",
+          "icon": "packages://node-library/static/images/ui-prefab/default.png",
+          "unlinkPrefab": true
         }
       ]
     }
