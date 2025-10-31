@@ -1,0 +1,32 @@
+{
+  "__version__": "1.0.1",
+  "custom": [
+    {
+      "name": "i18n:node-library.groups.custom",
+      "items": [
+        {
+          "type": "cc.Prefab",
+          "value": "5e4aa282-c7fe-4fb4-a84f-f858539ec866",
+          "name": "CHButton",
+          "extends": [
+            "cc.Asset"
+          ],
+          "assetUuid": "5e4aa282-c7fe-4fb4-a84f-f858539ec866",
+          "icon": "packages://node-library/static/images/ui-prefab/default.png",
+          "unlinkPrefab": true
+        },
+        {
+          "type": "cc.Prefab",
+          "value": "e5c861a2-2ed9-4f5e-afd6-366cfe7bc896",
+          "name": "CHScrollView",
+          "extends": [
+            "cc.Asset"
+          ],
+          "assetUuid": "e5c861a2-2ed9-4f5e-afd6-366cfe7bc896",
+          "icon": "packages://node-library/static/images/ui-prefab/default.png",
+          "unlinkPrefab": true
+        }
+      ]
+    }
+  ]
+}
