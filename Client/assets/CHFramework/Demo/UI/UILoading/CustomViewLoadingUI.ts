@@ -1,6 +1,6 @@
 
 import { Canvas, instantiate, Label, Prefab, ProgressBar, Tween, tween, UIOpacity, } from 'cc';
-import { GameUtil, ViewLoadingUIBase } from '../../../Runtime/Framework';
+import { ResUtil, ViewLoadingUIBase } from '../../../Runtime/Framework';
 // 预制体路径
 const prefabPath = "Demo_CHFramework/Prefab/UI/Loading/CustomViewLoadingUI";
 /**
@@ -13,7 +13,7 @@ export class CustomViewLoadingUI extends ViewLoadingUIBase {
     constructor(canvas: Canvas) {
         super(canvas);
         // 挂载UI组件
-        GameUtil.loadResource(prefabPath, Prefab).then(this.onReady.bind(this));
+        ResUtil.loadResource(prefabPath, Prefab).then(this.onReady.bind(this));
     }
     /**
      * 初始化UI组件

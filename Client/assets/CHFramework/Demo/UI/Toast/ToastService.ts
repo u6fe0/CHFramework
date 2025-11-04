@@ -1,6 +1,6 @@
 import { Canvas, director, Prefab, Node, instantiate, game, Component } from "cc";
 import { ToastBase } from "./ToastBase";
-import { GameUtil } from "../../../Runtime/Framework";
+import { GameUtil, ResUtil } from "../../../Runtime/Framework";
 
 interface ToastOptions {
     message: string;
@@ -17,7 +17,7 @@ export class ToastService {
     // 根节点
     private _toastRoot: Node = null
     constructor(ToastClass: typeof ToastBase) {
-        GameUtil.loadResource(ToastClass.prefabPath, Prefab).then(this.onReady.bind(this));
+        ResUtil.loadResource(ToastClass.prefabPath, Prefab).then(this.onReady.bind(this));
     }
     /**
      * 资源就绪，开始

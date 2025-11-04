@@ -30,27 +30,6 @@ export class GameUtil {
         return this.waitFrames(1);
     }
     /**
-     * 异步加载资源
-     * @param name
-     * @param Type
-     * @returns
-     */
-    static loadResource<T extends Asset>(
-        name: string,
-        Type: new () => T
-    ): Promise<T | null> {
-        return new Promise((resolve, reject) => {
-            resources.load(name, Type, (err: Error | null, res: T) => {
-                if (err) {
-                    console.error(`[GameUtil] LoadResource ${name} failed: ${err}`);
-                    return reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-        });
-    }
-    /**
      * 随机获取指定范围中的整数
      * @param {number} min 最小值
      * @param {number} max 最大值

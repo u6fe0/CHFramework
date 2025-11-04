@@ -39,7 +39,7 @@ export class ResUtil {
    * @param Type
    * @returns
    */
-  static LoadResource<T extends Asset>(
+  static loadResource<T extends Asset>(
     name: string,
     Type: new () => T
   ): Promise<T> {
