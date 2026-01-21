@@ -15,6 +15,7 @@ const form = reactive<Record<Keys, string>>({
 });
 
 const converting = ref(false);
+const syncing = ref(false);
 
 // 获取项目根目录
 function getProjectPath(): string {
@@ -121,10 +122,30 @@ async function onConvert() {
     converting.value = false;
   }
 }
+
+async function onSyncToExcel() {
+  if (!form.excelDir || !form.jsonOutDir) {
+    message({ type: 'warning', message: '请先选择 Excel 目录和 JSON 目录' });
+    return;
+  }
+  syncing.value = true;
+  try {
+    const ok = await Editor.Message.request(name, 'sync-json-to-excel', {
+      jsonDir: toAbsolutePath(form.jsonOutDir),
+      excelDir: toAbsolutePath(form.excelDir)
+    });
+    if (ok) message({ type: 'success', message: 'JSON 同步到 Excel 完成' });
+    else message({ type: 'error', message: '同步失败，请查看控制台日志' });
+  } catch (e: any) {
+    message({ type: 'error', message: `同步异常: ${e?.message || e}` });
+  } finally {
+    syncing.value = false;
+  }
+}
 </script>
 
 <template>
-  <el-card header="Excel 工具" shadow="hover">
+  <el-card header="Excel ⇄ JSON 双向转换" shadow="hover">
     <el-form label-width="160px">
       <el-form-item label="Excel地址">
         <el-input v-model="form.excelDir" placeholder="请选择 Excel 源目录" readonly>
@@ -166,7 +187,15 @@ async function onConvert() {
           :disabled="!form.excelDir || !form.jsonOutDir || !form.modelOutDir || !form.FrameworkTS"
           @click="onConvert"
         >
-          开始转换
+          Excel → JSON
+        </el-button>
+        <el-button
+          type="warning"
+          :loading="syncing"
+          :disabled="!form.excelDir || !form.jsonOutDir"
+          @click="onSyncToExcel"
+        >
+          JSON → Excel
         </el-button>
       </el-form-item>
     </el-form>

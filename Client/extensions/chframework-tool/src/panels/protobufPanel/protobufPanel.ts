@@ -6,7 +6,6 @@ import 'element-plus/theme-chalk/dark/css-vars.css';
 import { ElMessage } from 'element-plus';
 
 import App from './App.vue';
-import { state } from './pina';
 import { keyAppRoot, keyMessage } from './provide-inject';
 
 import type { MessageOptions } from 'element-plus';
@@ -14,7 +13,7 @@ import type { MessageOptions } from 'element-plus';
 const weakMap = new WeakMap();
 
 export default Editor.Panel.define({
-    template: '<div id="app" class="dark"></div>', // 只留一个 div 用于 vue 的挂载
+    template: '<div id="app" class="dark"></div>',
     $: {
         root: '#app',
     },
@@ -39,8 +38,5 @@ export default Editor.Panel.define({
         app?.unmount?.();
     },
     methods: {
-        increase() {
-            state.a += 1;
-        },
     },
 });

@@ -6,12 +6,10 @@ import { keyMessage } from './provide-inject';
 
 const message = inject(keyMessage)!;
 
-type Keys = 'excelDir' | 'jsonOutDir' | 'modelOutDir' | 'FrameworkTS';
+type Keys = 'protoDir' | 'protobufOutDir';
 const form = reactive<Record<Keys, string>>({
-  excelDir: '',
-  jsonOutDir: '',
-  modelOutDir: '',
-  FrameworkTS: ''
+  protoDir: '',
+  protobufOutDir: '',
 });
 
 const converting = ref(false);
@@ -48,9 +46,9 @@ function toAbsolutePath(relativePath: string): string {
 
 // 面板加载时，从 Editor.Profile 读取历史配置
 onMounted(async () => {
-  const keys: Keys[] = ['excelDir', 'jsonOutDir', 'modelOutDir', 'FrameworkTS'];
+  const keys: Keys[] = ['protoDir', 'protobufOutDir'];
   for (const k of keys) {
-    const v = await Editor.Profile.getConfig('Excel_Convert_Tool', k);
+    const v = await Editor.Profile.getConfig('Protobuf_Convert_Tool', k);
     if (typeof v === 'string' && v) {
       // 将存储的相对路径显示出来
       form[k] = v;
@@ -73,45 +71,23 @@ async function pickDir(key: Keys) {
   if (result.filePaths && result.filePaths[0]) {
     // 存储和显示相对路径
     const relativePath = toRelativePath(result.filePaths[0]);
-    await Editor.Profile.setConfig('Excel_Convert_Tool', key, relativePath);
+    await Editor.Profile.setConfig('Protobuf_Convert_Tool', key, relativePath);
     form[key] = relativePath;
   }
 }
 
-async function pickFrameworkTS() {
-  const absolutePath = toAbsolutePath(form.FrameworkTS) || getProjectPath();
-  const result = await Editor.Dialog.select({
-      title: '选择文件',
-      path: absolutePath,
-      type: 'file',
-      filters: [{ name: 'TypeScript', extensions: ['ts'] }],
-      multi: false,
-  });
-  if (result.canceled) {
-    message({ message: '已取消选择' });
-    return;
-  }
-  if (result.filePaths && result.filePaths[0]) {
-    // 存储和显示相对路径
-    const relativePath = toRelativePath(result.filePaths[0]);
-    await Editor.Profile.setConfig('Excel_Convert_Tool', 'FrameworkTS', relativePath);
-    form.FrameworkTS = relativePath;
-  }
-}
-
 async function onConvert() {
-  if (!form.excelDir || !form.jsonOutDir || !form.modelOutDir || !form.FrameworkTS) {
-    message({ type: 'warning', message: '请先选择四个目录' });
+  if (!form.protoDir || !form.protobufOutDir) {
+    message({ type: 'warning', message: '请先选择两个目录' });
     return;
   }
   converting.value = true;
   try {
     // 将相对路径转换为绝对路径后发送给后端
-    const ok = await Editor.Message.request(name, 'convert-excel', {
-      excelDir: toAbsolutePath(form.excelDir),
-      jsonOutDir: toAbsolutePath(form.jsonOutDir),
-      modelOutDir: toAbsolutePath(form.modelOutDir),
-      FrameworkTS: toAbsolutePath(form.FrameworkTS)
+    const ok = await Editor.Message.request(name, 'convert-protobuf', {
+      protoDir: toAbsolutePath(form.protoDir),
+      outDir: toAbsolutePath(form.protobufOutDir),
+      keepJs: false
     });
     if (ok) message({ type: 'success', message: '转换完成' });
     else message({ type: 'error', message: '转换失败，请查看控制台日志' });
@@ -124,37 +100,20 @@ async function onConvert() {
 </script>
 
 <template>
-  <el-card header="Excel 工具" shadow="hover">
+  <el-card header="Protobuf 工具" shadow="hover">
     <el-form label-width="160px">
-      <el-form-item label="Excel地址">
-        <el-input v-model="form.excelDir" placeholder="请选择 Excel 源目录" readonly>
+      <el-form-item label="Protobuf地址">
+        <el-input v-model="form.protoDir" placeholder="请选择 Protobuf 源目录" readonly>
           <template #append>
-            <el-button type="primary" @click="pickDir('excelDir')">选择</el-button>
+            <el-button type="primary" @click="pickDir('protoDir')">选择</el-button>
           </template>
         </el-input>
       </el-form-item>
 
-      <el-form-item label="JSON输出目录">
-        <el-input v-model="form.jsonOutDir" placeholder="请选择 JSON 输出目录" readonly>
+      <el-form-item label="Protobuf输出目录">
+        <el-input v-model="form.protobufOutDir" placeholder="请选择 Protobuf 输出目录" readonly>
           <template #append>
-            <el-button type="primary" @click="pickDir('jsonOutDir')">选择</el-button>
-          </template>
-        </el-input>
-      </el-form-item>
-
-      <el-form-item label="Model输出目录">
-        <el-input v-model="form.modelOutDir" placeholder="请选择 Model 输出目录" readonly>
-          <template #append>
-            <el-button type="primary" @click="pickDir('modelOutDir')">选择</el-button>
-          </template>
-        </el-input>
-      </el-form-item>
-
-
-      <el-form-item label="Framework.ts文件">
-        <el-input v-model="form.FrameworkTS" placeholder="请选择 Framework.ts 文件" readonly>
-          <template #append>
-            <el-button type="primary" @click="pickFrameworkTS">选择</el-button>
+            <el-button type="primary" @click="pickDir('protobufOutDir')">选择</el-button>
           </template>
         </el-input>
       </el-form-item>
@@ -163,7 +122,7 @@ async function onConvert() {
         <el-button
           type="success"
           :loading="converting"
-          :disabled="!form.excelDir || !form.jsonOutDir || !form.modelOutDir || !form.FrameworkTS"
+          :disabled="!form.protoDir || !form.protobufOutDir"
           @click="onConvert"
         >
           开始转换

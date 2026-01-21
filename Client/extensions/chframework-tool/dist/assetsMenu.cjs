@@ -1,11 +1,9 @@
 "use strict";
 const fs = require("node:fs");
 const path = require("node:path");
+const _commonjsHelpers = require("./_commonjsHelpers-Bc2YnDe1.cjs");
 const require$$0 = require("node:zlib");
 const require$$0$1 = require("node:crypto");
-function getDefaultExportFromCjs(x) {
-  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
-}
 var util = { exports: {} };
 var constants = {
   /* The local file header */
@@ -2561,7 +2559,7 @@ var admZip = function(input, options) {
     }
   };
 };
-const AdmZip = /* @__PURE__ */ getDefaultExportFromCjs(admZip);
+const AdmZip = /* @__PURE__ */ _commonjsHelpers.getDefaultExportFromCjs(admZip);
 const PLACEHOLDER_PREFIX = "XXX";
 async function promptViewName() {
   return new Promise((resolve) => {

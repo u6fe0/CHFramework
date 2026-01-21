@@ -1,6 +1,6 @@
 {
     "name": "chframework-tool",
-    "version": "0.0.0",
+    "version": "1.0.1",
     "package_version": 2,
     "type": "module",
     "main": "./dist/browser.cjs",
@@ -11,6 +11,7 @@
     "dependencies": {
         "adm-zip": "^0.5.10",
         "element-plus": "^2.8.6",
+        "exceljs": "^4.4.0",
         "vue": "^3.4.37",
         "xlsx": "^0.18.5"
     },
@@ -34,6 +35,11 @@
                 "path": "i18n:chframework-tool.title",
                 "label": "i18n:chframework-tool.menu.excel_tool",
                 "message": "open_excel_tool"
+            },
+            {
+                "path": "i18n:chframework-tool.title",
+                "label": "i18n:chframework-tool.menu.protobuf_tool",
+                "message": "open_protobuf_generator"
             }
         ],
         "messages": {
@@ -42,14 +48,24 @@
                     "open_excel_tool"
                 ]
             },
-            "open_mvvm_generator": {
+            "open_protobuf_generator": {
                 "methods": [
-                    "open_mvvm_generator"
+                    "open_protobuf_generator"
                 ]
             },
             "convert-excel": {
                 "methods": [
                     "convertExcel"
+                ]
+            },
+            "convert-protobuf": {
+                "methods": [
+                    "convertProtobuf"
+                ]
+            },
+            "sync-json-to-excel": {
+                "methods": [
+                    "syncJsonToExcel"
                 ]
             }
         },
@@ -67,18 +83,18 @@
             "size": {
                 "min-width": 400,
                 "min-height": 300,
-                "width": 800,
-                "height": 700
+                "width": 650,
+                "height": 500
             }
         },
-        "mvvmGeneratorPanel": {
-            "main": "./dist/mvvmPanel.cjs",
-            "title": "MVVM 生成器",
+        "protobufToolPanel": {
+            "main": "./dist/protobufPanel.cjs",
+            "title": "Protobuf 工具",
             "size": {
                 "min-width": 400,
-                "min-height": 300,
-                "width": 800,
-                "height": 700
+                "min-height": 200,
+                "width": 650,
+                "height": 400
             }
         }
     },

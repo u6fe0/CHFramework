@@ -13,7 +13,7 @@ function mapTsType(t?: string): 'number' | 'string' {
   return (t || '').trim().toLowerCase() === 'number' ? 'number' : 'string';
 }
 
-async function readHeaderFromXlsx(file: string): Promise<{ types: string[]; keys: string[] } | null> {
+async function readHeaderFromXlsx(file: string): Promise<{ types: string[]; keys: string[]; comments: string[] } | null> {
   await fs.access(file, FS.R_OK);
   const buf = await fs.readFile(file);
   const wb = XLSX.read(buf, { type: 'buffer', cellDates: false });
@@ -21,18 +21,20 @@ async function readHeaderFromXlsx(file: string): Promise<{ types: string[]; keys
   if (!ws) return null;
   const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true }) as any[][];
   if (!rows || rows.length < 3) return null;
+  const comments = (rows[0] || []).map(v => (v == null ? '' : String(v).replace(/[\r\n]/g, '').trim()));
   const types = (rows[1] || []).map(v => (v == null ? '' : String(v).trim().toLowerCase()));
   const keys  = (rows[2] || []).map(v => (v == null ? '' : String(v).trim()));
   if (!keys.some(k => k.toLowerCase() === 'id')) return null;
-  return { types, keys };
+  return { types, keys, comments };
 }
 
-function genInterfaceCode(iface: string, types: string[], keys: string[]) {
+function genInterfaceCode(iface: string, types: string[], keys: string[], comments: string[]) {
   const fields: string[] = [];
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
     if (!k) continue;
-    fields.push(`    ${k}: ${mapTsType(types[i])};`);
+    const comment = comments[i] ? ` // ${comments[i]}` : '';
+    fields.push(`    ${k}: ${mapTsType(types[i])};${comment}`);
   }
   return `export interface ${iface} extends ITableModel {\n${fields.join('\n')}\n}\n`;
 }
@@ -64,7 +66,7 @@ export async function generateModels(
         continue;
       }
       const iface = `I${pascalCase(path.parse(f).name)}`;
-      pieces.push(genInterfaceCode(iface, header.types, header.keys));
+      pieces.push(genInterfaceCode(iface, header.types, header.keys, header.comments));
     } catch (e: any) {
       console.warn(`[excel2model] 跳过（无法读取）: ${f} -> ${e?.message || e}`);
     }

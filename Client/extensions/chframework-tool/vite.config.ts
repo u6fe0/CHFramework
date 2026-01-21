@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
                     browser: './src/browser/index.ts',
                     assetsMenu: './src/assets-menu/index.ts',
                     excelPanel: './src/panels/excelPanel/excelPanel.ts',
-                    mvvmPanel: './src/panels/mvvmPanel/mvvmPanel.ts',
+                    protobufPanel: './src/panels/protobufPanel/protobufPanel.ts',
                 },
                 formats: ['cjs'],
                 fileName: (_, entryName) => `${entryName}.cjs`,

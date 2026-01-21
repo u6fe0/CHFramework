@@ -19,21 +19,21 @@ html, body {
     padding: 20px;
 }
 
-/* Element Plus 暗色主题 */
+/* Element Plus 暗色主题变量调整 */
 #app.dark {
     color-scheme: dark;
 }
 
 .center-actions {
-  /* 取消该行的 label 占位宽度 */
-  --el-form-label-width: 0 !important;
+    /* 取消该行的 label 占位宽度 */
+    --el-form-label-width: 0 !important;
 }
 
 .center-actions .el-form-item__content {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* 覆盖 Element Plus 给内容区加的左侧缩进 */
-  margin-left: 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 覆盖 Element Plus 给内容区加的左侧缩进 */
+    margin-left: 0 !important;
 }
